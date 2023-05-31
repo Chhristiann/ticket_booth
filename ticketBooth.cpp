@@ -2,6 +2,9 @@
     Christian Chacon | 5/31/2023
 
     NO Validation Used!!!
+
+    oneTicket - individual ticket
+    oneOrderTickets - a group of tickets which are grouped together
 */
 
 #include <iostream>
@@ -66,13 +69,13 @@ public:
     void setAge(short int age){this->age = age;}
 
     //accessor fn - time, movie name, price
-    std::string getTime(std::string selectedTime){return(selectedTime);}
-    std::string getMovieName(short int movieSelect){return("x");}//use number to get movie name from vector of names.
-    std::string getPrice(){return(std::to_string(price));}
+    std::string getSelectedTime(){return(selectedTime);}
+    std::string getMovieName(){return("xxxx");}//use number to get movie name from vector of names.
+    double getPrice(){return(price);}
 
     //utility fn
     void calcPrice(){
-        if(matinee){
+        if(selectedTime.at(0) < '5'){
             price = 5.50;
             matinee = true;
         }
@@ -86,15 +89,29 @@ public:
 class Order{
 private:
     double totalDue;
-    std::vector <Ticket> oneOrder;
+    std::vector <Ticket> oneOrderTickets;
 
 public:
     //non-default fn
-    Order(std::vector <Ticket> oneOrder){
-        
-        totalDue = 0.00;
+    Order(std::vector <Ticket> ticketList):totalDue(0.00), oneOrderTickets(ticketList){
+        //tbf
     }
 
+    //accessor
+    std::string getTotalDue(double totalDue){return(std::to_string(totalDue));}
+    
+    //utility fn
+    double calcTotalDue(){
+        double price = 0.00;
+        for(Ticket oneTicket : oneOrderTickets){
+            price = oneTicket.getPrice();
+            totalDue += price;
+        }
+        return totalDue;
+    }
+    std::string printOneOrder(){
+        return("You have selected " + std::to_string(oneOrderTickets.size()) + " to see " + oneOrderTickets[0].getMovieName() + " with a start time of " + oneOrderTickets[0].getSelectedTime());
+    }
 };//- - - - - - - End Order Class - - - - - - - 
 
 //fn prototypes
