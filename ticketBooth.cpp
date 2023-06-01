@@ -115,19 +115,29 @@ public:
 };//- - - - - - - End Order Class - - - - - - - 
 
 //fn prototypes
-void loadMovieChoices();
+void loadMovieChoices(std::vector <Movies> listMovies);
 short int selectMovie();
 short int startTimeChoice();
 Ticket purchaseTicket();
 
-
 int main(){
+    std::vector <Movies> listMovies;
+
+    loadMovieChoices(listMovies);
 
     return 0;
 }
 
-void loadMovieChoices(){
+void loadMovieChoices(std::vector <Movies> listMovies){
+    std::vector <std::string> pgMovies = {"12:00 PM","2:30 PM","4:00 PM","6:30 PM","8:00 PM"};
+    std::vector <std::string> pg13Movies = {"1:30 PM","3:00 PM","5:30 PM","7:00 PM","9:30 PM"};
 
+    listMovies.push_back(Movies("Ant-Man and the Wasp", "(PG-13)", pg13Movies));
+    listMovies.push_back(Movies("80 for Brady", "(PG-13)", pg13Movies));
+    listMovies.push_back(Movies("MEGAN", "(PG-13)", pg13Movies));
+    listMovies.push_back(Movies("Avatar: The way of water", "(PG-13)", pg13Movies));
+    listMovies.push_back(Movies("Lego Movie", "(PG)", pgMovies));
+    listMovies.push_back(Movies("Space Jam", "(PG)", pgMovies));
 }
 
 short int selectMovie(){
